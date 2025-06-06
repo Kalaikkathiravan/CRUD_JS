@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple To-Do App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+
+    .container {
+      width: 600px;
+      padding: 40px;
+      background-color: white;
+      border: 3px solid #ccc;
+
+      /* Move to center using margin top and left/right auto */
+      margin: 100px auto 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    input {
+      padding: 12px;
+      width: 65%;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 12px 18px;
+      font-size: 18px;
+      margin-left: 5px;
+      margin-top: 10px;
+    }
+
+    .task {
+      font-size: 20px;
+      background-color: #f2f2f2;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .task button {
+      font-size: 16px;
+      margin-left: 10px;
+      padding: 6px 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Simple To-Do App</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add Task</button>
+
+    <div id="taskList"></div>
+  </div>
+
+  <script>
+    var tasks = [];
+
+    function addTask() {
+      var input = document.getElementById("taskInput");
+      var task = input.value;
+
+      if (task !== "") {
+        tasks.push(task);
+        input.value = "";
+        showTasks();
+      }
+    }
+
+    function showTasks() {
+      var taskList = document.getElementById("taskList");
+      taskList.innerHTML = "";
+
+      for (var i = 0; i < tasks.length; i++) {
+        taskList.innerHTML +=
+          "<div class='task'>" +
+            "<span>" + tasks[i] + "</span>" +
+            "<button onclick='editTask(" + i + ")'>Edit</button>" +
+            "<button onclick='deleteTask(" + i + ")'>Delete</button>" +
+          "</div>";
+      }
+    }
+
+    function editTask(index) {
+      var newTask = prompt("Edit the task:", tasks[index]);
+
+      if (newTask !== null && newTask !== "") {
+        tasks[index] = newTask;
+        showTasks();
+      }
+    }
+
+    function deleteTask(index) {
+      var confirmDelete = confirm("Do you want to delete this task?");
+      if (confirmDelete) {
+        tasks.splice(index, 1);
+        showTasks();
+      }
+    }
+  </script>
+
+</body>
+</html>
